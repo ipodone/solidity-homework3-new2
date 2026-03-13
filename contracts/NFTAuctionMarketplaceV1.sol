@@ -2,6 +2,7 @@
 pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
@@ -19,7 +20,7 @@ import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.so
  * - 获取实时ETH/USD价格（通过Chainlink）
  * - UUPS升级机制
  */
-contract NFTAuctionMarketplaceV1  is Initializable, OwnableUpgradeable, UUPSUpgradeable {
+contract NFTAuctionMarketplaceV1  is ReentrancyGuard, Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
     // ============ 状态变量 ============
 
@@ -219,7 +220,7 @@ contract NFTAuctionMarketplaceV1  is Initializable, OwnableUpgradeable, UUPSUpgr
      * @param auctionId 拍卖ID
      * @notice 任何人都可以在拍卖结束后调用此函数进行结算
      */
-    function endAuction(uint256 auctionId) external virtual {
+    function endAuction(uint256 auctionId) external virtual nonReentrant() {
         Auction storage auction = auctions[auctionId];
         
         require(auction.active, "Auction not active");

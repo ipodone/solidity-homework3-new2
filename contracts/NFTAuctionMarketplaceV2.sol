@@ -8,7 +8,7 @@ import "./NFTAuctionMarketplaceV1.sol";
  * @dev NFT拍卖市场合约V2升级版本
  * 新增功能：
  * - 平台费用机制
- * - ？2. eth/usd 3. test 4. 部署 5. 说明文档
+ * - ？3. test 4. 部署 5. 说明文档
  */
 contract NFTAuctionMarketplaceV2  is NFTAuctionMarketplaceV1 {
 
@@ -38,7 +38,7 @@ contract NFTAuctionMarketplaceV2  is NFTAuctionMarketplaceV1 {
      * @param auctionId 拍卖ID
      * @notice 任何人都可以在拍卖结束后调用此函数进行结算
      */
-    function endAuction(uint256 auctionId) external override {
+    function endAuction(uint256 auctionId) external override nonReentrant() {
         Auction storage auction = auctions[auctionId];
         
         require(auction.active, "Auction not active");
