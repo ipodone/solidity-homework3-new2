@@ -12,7 +12,7 @@ import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.so
  * @title NFTAuctionMarketplaceV1
  * @dev NFT拍卖市场合约V1，支持ERC721标准的NFT拍卖功能
  * @notice 继承自OpenZeppelin的Initializable、OwnableUpgradeable和UUPSUpgradeable，实现可升级合约模式
- * 功能：
+ * 功能：开发顺序 - 1.Hardhat环境 2.合约（MyNFT V1 V2 UUPS Chainlink 业务） 3. test 4.部署 5.说明文档
  * - 创建拍卖
  * - 支持用户出价
  * - 支持撤回资金
@@ -115,7 +115,7 @@ contract NFTAuctionMarketplaceV1  is ReentrancyGuard, Initializable, OwnableUpgr
         uint256 tokenId,
         uint256 startPrice,
         uint256 durationHours
-    ) external returns (uint256) {
+    ) external virtual returns (uint256) {
         require(startPrice > 0, "Start price must be greater than 0");
         require(durationHours >= 1, "Duration must be at least 1 hour");
         require(nftContract != address(0), "Invalid NFT contract");

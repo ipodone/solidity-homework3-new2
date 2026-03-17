@@ -8,7 +8,6 @@ import "./NFTAuctionMarketplaceV1.sol";
  * @dev NFT拍卖市场合约V2升级版本
  * 新增功能：
  * - 平台费用机制
- * - ？3. test 4. 部署 5. 说明文档
  */
 contract NFTAuctionMarketplaceV2  is NFTAuctionMarketplaceV1 {
 
